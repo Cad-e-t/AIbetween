@@ -79,7 +79,7 @@
       background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 
+      box-shadow:
         0 25px 50px -12px rgba(0, 0, 0, 0.6),
         0 0 0 1px rgba(255, 255, 255, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -87,7 +87,7 @@
     }
     .video-inner:hover {
       transform: translateY(-4px);
-      box-shadow: 
+      box-shadow:
         0 35px 70px -12px rgba(0, 0, 0, 0.7),
         0 0 0 1px rgba(255, 255, 255, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -104,20 +104,18 @@
       margin: 4rem 0 6rem;
       padding: 0 1rem;
     }
-    
+
     .cta form {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: stretch;
-      gap: 1rem;
-      max-width: 500px;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 750px;
       margin: 0 auto;
     }
-    
+
     input[type="email"] {
-      flex: 1;
-      min-width: 280px;
+      width: 100%;
       padding: 1.1rem 1.5rem;
       border: 2px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
@@ -129,20 +127,21 @@
       transition: all 0.3s ease;
       outline: none;
     }
-    
+
     input[type="email"]::placeholder {
       color: rgba(255, 255, 255, 0.6);
     }
-    
+
     input[type="email"]:focus {
       border-color: #6366f1;
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 
+      box-shadow:
         0 0 0 4px rgba(99, 102, 241, 0.1),
         0 10px 25px -5px rgba(99, 102, 241, 0.2);
     }
-    
+
     button {
+      width: 100%;
       padding: 1.1rem 2rem;
       border: none;
       border-radius: 16px;
@@ -152,14 +151,13 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      min-width: 160px;
       position: relative;
       overflow: hidden;
-      box-shadow: 
+      box-shadow:
         0 8px 25px -8px rgba(99, 102, 241, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
-    
+
     button::before {
       content: '';
       position: absolute;
@@ -171,18 +169,18 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-    
+
     button:hover::before {
       opacity: 1;
     }
-    
+
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 
+      box-shadow:
         0 12px 35px -8px rgba(99, 102, 241, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
-    
+
     button span {
       position: relative;
       z-index: 1;
@@ -193,42 +191,43 @@
       header {
         padding: 1.5rem 2rem;
       }
-      
+
       header h1 {
         font-size: 1.5rem;
       }
-      
+
       main {
         padding: 0 1.5rem;
       }
-      
+
       .tagline {
         font-size: 2rem;
         margin: 3rem auto 4rem;
       }
-      
+
       .video-wrapper {
         margin: 0 auto 3rem;
       }
-      
+
       .video-inner {
         border-radius: 20px;
       }
-      
+
       .cta {
         margin: 3rem 0 4rem;
       }
-      
+
       .cta form {
         flex-direction: column;
         align-items: center;
+        max-width: 90%;
       }
-      
+
       input[type="email"] {
-        min-width: 100%;
+        width: 100%;
         margin-bottom: 0;
       }
-      
+
       button {
         width: 100%;
       }
@@ -238,20 +237,20 @@
       header {
         padding: 1rem 1.5rem;
       }
-      
+
       main {
         padding: 0 1rem;
       }
-      
+
       .tagline {
         font-size: 1.75rem;
         margin: 2rem auto 3rem;
       }
-      
+
       .video-inner {
         border-radius: 16px;
       }
-      
+
       input[type="email"], button {
         border-radius: 12px;
       }
@@ -287,20 +286,20 @@
   </main>
 
   <script>
-    const SUPABASE_URL = 'https://ceccojjvzimljcdltjxy.supabase.co';
+    const SUPABASE_URL = 'https://ceccojjvzimlkcdltjxy.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlY2Nvamp2emltbGpjZGx0anh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2MTQyODksImV4cCI6MjA2ODE5MDI4OX0.rDgh2V46RnqpD7A92VEwfQC-4SzVindxQKHYwDCPNvE';
 
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      
+
       const email = document.getElementById('email').value;
       const submitBtn = document.getElementById('submitBtn');
       const message = document.getElementById('message');
-      
+
       // Update button state
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Joining...</span>';
-      
+
       try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
           method: 'POST',
