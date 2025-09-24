@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIbetween – Insert Any Effect Into Your Videos</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+      color: #f2f2f2;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Top bar */
+    header {
+      padding: 2rem 3rem;
+      text-align: left;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a8b3cf 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Tagline / Hero message */
+    .tagline {
+      text-align: center;
+      margin: 4rem auto 5rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      max-width: 90%;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Centered video wrapper with aspect ratio */
+    .video-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 4rem;
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+    .video-inner {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-inner:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 35px 70px -12px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* CTA section */
+    .cta {
+      text-align: center;
+      margin: 4rem 0 6rem;
+      padding: 0 1rem;
+    }
+    
+    .cta form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    input[type="email"] {
+      flex: 1;
+      min-width: 280px;
+      padding: 1.1rem 1.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    
+    input[type="email"]::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    input[type="email"]:focus {
+      border-color: #6366f1;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 0 0 4px rgba(99, 102, 241, 0.1),
+        0 10px 25px -5px rgba(99, 102, 241, 0.2);
+    }
+    
+    button {
+      padding: 1.1rem 2rem;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 160px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 8px 25px -8px rgba(99, 102, 241, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    button:hover::before {
+      opacity: 1;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 12px 35px -8px rgba(99, 102, 241, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header {
+        padding: 1.5rem 2rem;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+      }
+      
+      main {
+        padding: 0 1.5rem;
+      }
+      
+      .tagline {
+        font-size: 2rem;
+        margin: 3rem auto 4rem;
+      }
+      
+      .video-wrapper {
+        margin: 0 auto 3rem;
+      }
+      
+      .video-inner {
+        border-radius: 20px;
+      }
+      
+      .cta {
+        margin: 3rem 0 4rem;
+      }
+      
+      .cta form {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      input[type="email"] {
+        min-width: 100%;
+        margin-bottom: 0;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+      
+      main {
+        padding: 0 1rem;
+      }
+      
+      .tagline {
+        font-size: 1.75rem;
+        margin: 2rem auto 3rem;
+      }
+      
+      .video-inner {
+        border-radius: 16px;
+      }
+      
+      input[type="email"], button {
+        border-radius: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AIbetween</h1>
+  </header>
+
+  <main>
+    <div class="tagline">
+      Generate GIFs, Effects, and Animations Into Your Raw Videos Just By Describing It.
+    </div>
+
+    <div class="video-wrapper">
+      <div class="video-inner">
+        <video autoplay muted loop playsinline controls>
+          <source src="demo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <div class="cta">
+      <form id="waitlistForm">
+        <input type="email" id="email" name="email" placeholder="Enter your email…" required />
+        <button type="submit" id="submitBtn"><span>Join Waitlist</span></button>
+      </form>
+      <div id="message" style="margin-top: 1rem; font-size: 0.9rem; display: none;"></div>
+    </div>
+  </main>
+
+  <script>
+    const SUPABASE_URL = 'https://ceccojjvzimljcdltjxy.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlY2Nvamp2emltbGpjZGx0anh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2MTQyODksImV4cCI6MjA2ODE5MDI4OX0.rDgh2V46RnqpD7A92VEwfQC-4SzVindxQKHYwDCPNvE';
+
+    document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const submitBtn = document.getElementById('submitBtn');
+      const message = document.getElementById('message');
+      
+      // Update button state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Joining...</span>';
+      
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ email: email })
+        });
+
+        if (response.ok) {
+          message.style.display = 'block';
+          message.style.color = '#10b981';
+          message.textContent = '🎉 Successfully joined the waitlist!';
+          document.getElementById('email').value = '';
+        } else if (response.status === 409) {
+          message.style.display = 'block';
+          message.style.color = '#f59e0b';
+          message.textContent = '📧 This email is already on the waitlist!';
+        } else {
+          throw new Error('Failed to join waitlist');
+        }
+      } catch (error) {
+        message.style.display = 'block';
+        message.style.color = '#ef4444';
+        message.textContent = '❌ Something went wrong. Please try again.';
+        console.error('Error:', error);
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Join Waitlist</span>';
+      }
+    });
+  </script>
+</body>
+</html>
