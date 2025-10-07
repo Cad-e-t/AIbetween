@@ -279,7 +279,7 @@
     <div class="cta">
       <form id="waitlistForm">
         <input type="email" id="email" name="email" placeholder="Enter your email…" required />
-        <button type="submit" id="submitBtn"><span>Join Waitlist</span></button>
+        <button type="submit" id="submitBtn"><span>Get Early Access</span></button>
       </form>
       <div id="message" style="margin-top: 1rem; font-size: 0.9rem; display: none;"></div>
     </div>
@@ -315,12 +315,12 @@
         if (response.ok) {
           message.style.display = 'block';
           message.style.color = '#10b981';
-          message.textContent = '🎉 Successfully joined the waitlist!';
+          message.textContent = '🎉 You’ve secured your early access spot! We’ll be in touch soon with next steps!';
           document.getElementById('email').value = '';
         } else if (response.status === 409) {
           message.style.display = 'block';
           message.style.color = '#f59e0b';
-          message.textContent = '📧 This email is already on the waitlist!';
+          message.textContent = '📧 You already on the early access waitlist. We will reach out soon!';
         } else {
           throw new Error('Failed to join waitlist');
         }
